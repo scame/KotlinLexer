@@ -7,6 +7,7 @@ class Lexer {
 
     init {
         val patternBuilder = StringBuilder()
+
         TokenType.values().forEach {
             patternBuilder.append(String.format("|(?<%s>%s)", it.name, it.pattern))
         }
@@ -20,10 +21,12 @@ class Lexer {
             val matcher = pattern.matcher(line)
 
             while (matcher.find()) {
-                if (matcher.group(TokenType.NUMBER.name) != null) {
-                    tokens.add(constructToken(matcher, TokenType.NUMBER, index, line))
+                if (matcher.group(TokenType.INTEGRAL.name) != null) {
+                    tokens.add(constructToken(matcher, TokenType.INTEGRAL, index, line))
                 } else if (matcher.group(TokenType.IF.name) != null) {
                     tokens.add(constructToken(matcher, TokenType.IF, index, line))
+                } else if (matcher.group(TokenType.ID.name) != null) {
+                    tokens.add(constructToken(matcher, TokenType.ID, index, line))
                 }
             }
         }
