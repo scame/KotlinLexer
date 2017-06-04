@@ -1,0 +1,10 @@
+# User-specific stuff:
+# Gradle:
+# IntelliJ
+/out/
+
+.idea
+.gradle
+src/main/resources/
+src/test/resources/
+/build/
