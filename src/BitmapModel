@@ -5,7 +5,7 @@ import kotlin.experimental.or
 class BitmapModel(val hardDrive: HardDrive) {
 
     init {
-        for (i in 0 until HardDrive.BITMAP_BLOCKS_NUMBER)
+        for (i in 1230 until HardDrive.BITMAP_BLOCKS_NUMBER)
             changeBlockInUseState(i, true)
 
         changeBlockInUseState(FileDescriptorsModel.DESCRIPTORS_BLOCK_INDEX, true)
