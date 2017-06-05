@@ -84,6 +84,7 @@ enum class TokenType(val pattern: String) {
     AT("@"),
     DOLLAR("\\$"),
     BRACKETS("\\\""),
+    IGNORED("\\b_\\b"),
 
     ID("[a-zA-Z][a-zA-Z0-9_]*"),
 

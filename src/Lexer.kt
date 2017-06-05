@@ -185,6 +185,8 @@ class Lexer {
                 tokens.add(constructToken(matcher, TokenType.DOLLAR, flattedInput))
             } else if (matcher.group(TokenType.BRACKETS.name) != null) {
                 tokens.add(constructToken(matcher, TokenType.BRACKETS, flattedInput))
+            } else if (matcher.group(TokenType.IGNORED.name) != null) {
+                tokens.add(constructToken(matcher, TokenType.IGNORED, flattedInput))
             } else if (matcher.group(TokenType.ID.name) != null) {
                 tokens.add(constructToken(matcher, TokenType.ID, flattedInput))
             } else if (matcher.group(TokenType.ERROR.name) != null) {
@@ -192,7 +194,9 @@ class Lexer {
             }
         }
 
-        tokens.forEach { println(it) }
+        for (token in tokens) {
+            println(token)
+        }
     }
 
 
