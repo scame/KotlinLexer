@@ -5,6 +5,8 @@ class Lexer {
 
     val pattern: Pattern
 
+    val fa = FiniteAutomata()
+
     init {
         val patternBuilder = StringBuilder()
 
@@ -15,11 +17,19 @@ class Lexer {
     }
 
     fun processInput(lines: List<String>) {
-        val tokens = mutableListOf<Token>()
         val flattedInput = lines.reduce { acc, s -> acc + s + '\n' }
 
-        val matcher = pattern.matcher(flattedInput)
+        runRegex(flattedInput)
+        //runFA(flattedInput)
+    }
 
+    private fun runFA(flattedInput: String) {
+        fa.runFA(flattedInput)
+    }
+
+    private fun runRegex(flattedInput: String) {
+        val tokens = mutableListOf<Token>()
+        val matcher = pattern.matcher(flattedInput)
 
         while (matcher.find()) {
             if (matcher.group(TokenType.BLOCKCOMMENT.name) != null) {
@@ -198,7 +208,6 @@ class Lexer {
             println(token)
         }
     }
-
 
     private fun constructToken(matcher: Matcher, tokenType: TokenType, input: String): Token {
         val position = Position(matcher.start(tokenType.name), matcher.end(tokenType.name))
