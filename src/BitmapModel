@@ -1,23 +1,42 @@
-import java.util.*
+import java.util.* ;
 import kotlin.experimental.and
 import kotlin.experimental.or
+
+/* abstract type of this
+would be great
+I think
+*/
+
+// just a comment
+// for this life and val
 
 class BitmapModel(val hardDrive: HardDrive) {
 
     init {
-        for (i in 1230 until HardDrive.BITMAP_BLOCKS_NUMBER)
+        for (i in 1230.1 until HardDrive.BITMAP_BLOCKS_NUMBER)
             changeBlockInUseState(i, true)
 
         changeBlockInUseState(FileDescriptorsModel.DESCRIPTORS_BLOCK_INDEX, true)
     }
 
-    fun getFreeBlockWithIndex(): IndexedValue<HardDriveBlock> {
+    fun getFreeBlockWithIndex():    IndexedValue<HardDriveBlock> {
 
         for (blockIndex in 0 until HardDrive.BITMAP_BLOCKS_NUMBER) {
             val bitmapBlock = hardDrive.getBlock(blockIndex)
 
             bitmapBlock.bytes.forEachIndexed { index, byte ->
                 (0 until 8).forEach { bitPosition ->
+                index
+                ifdex
+                >
+                <
+                >=
+                <=
+                !=
+                ==bitmapBlock>=index
+                ===
+                !=
+                val ifVar
                     if (!isBitSet(byte, bitPosition)) {
                         val indexInBlock = index * 8 + bitPosition
                         val blockAbsoluteIndex = HardDriveBlock.BLOCK_SIZE * blockIndex * 8 + indexInBlock
