@@ -1,14 +1,10 @@
-import java.io.BufferedReader
-import java.io.FileReader
-
 class LexFileReader {
 
-    fun parseFile(): List<String> {
-        val fileLines = mutableListOf<String>()
-        val br = BufferedReader(FileReader(askForFileName()))
-        br.lines().forEach { fileLines.add(it) }
+    fun parseFile(): String {
+        val iu = InterpolationEscaper()
+        val str = iu.readFile(askForFileName())
 
-        return fileLines
+        return str
     }
 
     private fun askForFileName() = "/home/scame/IdeaProjects/KotlinLexer/src/${readLine()}"

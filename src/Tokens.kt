@@ -4,8 +4,11 @@ enum class TokenType(val pattern: String) {
 
     WHITESPACE("\\s+"),
 
-    DECIMAL("[+-]?([0-9]+[.])[0-9]+"),
-    INTEGRAL("[+-]?[0-9]+"),
+    BINARY("0b[0-1]+\\b"),
+    FLOAT("[+-]?([0-9]+)([.][0-9]+)?f\\b"),
+    DOUBLE("[+-]?([0-9]+[.])[0-9]+\\b"),
+    LONG("[+-]?[0-9]+L\\b"),
+    INTEGRAL("[+-]?[0-9]+\\b"),
 
     TYPEALIAS("typealias\\b"),
     INTERFACE("interface\\b"),
@@ -82,15 +85,28 @@ enum class TokenType(val pattern: String) {
     COMMA(","),
     HASH("#"),
     AT("@"),
-    DOLLAR("\\$"),
-    BRACKETS("\\\""),
     IGNORED("\\b_\\b"),
+
+    CHAR("'.{1}'"),
+    STR("(?s)\".*?\""),
 
     ID("[a-zA-Z][a-zA-Z0-9_]*"),
 
     ERROR(".+")
 }
 
-data class Token(val tokenType: TokenType, val lexeme: String, val position: Position)
+enum class InterpolationPatterns(val pattern: String) {
+    INTERPOLATIONCOMPLEX("(?s)\\$\\{.*?}"),
+    INTERPOLATIONSIMPLE("\\$\\w+"),
+}
+
+open class BaseToken
+
+data class Token(val tokenType: TokenType, val lexeme: String, val position: Position): BaseToken()
+
+data class StringToken(val token: Token,
+                       val interpolatedGroups: MutableList<InterpolatedGroup>): BaseToken()
+
+data class InterpolatedGroup(val position: Position, val tokens: MutableList<BaseToken>)
 
 data class Position(val startIndex: Int, val endIndex: Int)
